@@ -20,9 +20,9 @@ namespace KnowledgeBase.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Issue()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Register issues page.";
 
             return View();
         }
