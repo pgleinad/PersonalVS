@@ -39,13 +39,13 @@ namespace KnowledgeBase.Tests.Controllers
         }
 
         [TestMethod]
-        public void Contact()
+        public void Issue()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            ViewResult result = controller.Issue() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
