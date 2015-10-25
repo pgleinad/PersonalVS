@@ -1,4 +1,5 @@
 ﻿@model KnowledgeBase.Models.SearchModel
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Register Issue";
 }
@@ -92,4 +93,12 @@
             }
         }
     </table>
+    <div>
+        @if (string.IsNullOrEmpty(Model.textToSearch))
+        {
+            <div>
+                @Html.PagedListPager(Model.issuesPaged, page => Url.Action("Search", new { page }))
+            </div>
+        }       
+    </div>
 }

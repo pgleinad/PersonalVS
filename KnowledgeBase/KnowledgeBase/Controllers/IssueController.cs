@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace KnowledgeBase.Controllers
 {
@@ -14,11 +15,14 @@ namespace KnowledgeBase.Controllers
             return View("Register");
         }
 
-        public ActionResult Search()
+        public ActionResult Search(int? page)
         {
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
             List<IssueModel> issues = new KnowledgeBase.Services.DataBase.Context.Issue(Server.MapPath("~")).getAll();
             SearchModel search = new SearchModel();
-            search.issues = issues;
+            search.issues = issues.ToPagedList(pageNumber, pageSize).ToList();
+            search.issuesPaged = issues.ToPagedList(pageNumber, pageSize);
             return View("Search", search);
         }
 
@@ -78,7 +82,8 @@ namespace KnowledgeBase.Controllers
                     var filtered = issues.Where(i => i.comments.Contains(search.textToSearch)).ToList();
                     searchedIssues = searchedIssues.Union(filtered).ToList();
                 }
-                search.issues = searchedIssues;
+                search.issues = searchedIssues.ToList();
+                search.issuesPaged = null;
                 return View("Search", search);
             }
             else
