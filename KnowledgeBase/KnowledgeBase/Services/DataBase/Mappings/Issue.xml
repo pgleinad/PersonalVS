@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Database Name="KnowledgeBase" xmlns="http://schemas.microsoft.com/linqtosql/mapping/2007">
+  <Table Name="dbo.Issue" Member="KnowledgeBase.Models.IssueModel">
+    <Type Name="KnowledgeBase.Models.IssueModel">
+      <Column Name="id" Member="id"/>
+      <Column Name="title" Member="title" />
+      <Column Name="symptom" Member="symptom" />
+      <Column Name="diagnostic" Member="diagnostic" />
+      <Column Name="fix" Member="fix" />
+      <Column Name="createdDate" Member="createdDate" />
+      <Column Name="comments" Member="comments" />
+    </Type>
+  </Table>
   <Function Name="dbo.addIssue" Method="addIssue">
     <Parameter Name="id" Parameter="id" />
     <Parameter Name="title" Parameter="title" />

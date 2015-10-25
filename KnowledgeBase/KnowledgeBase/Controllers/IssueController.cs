@@ -16,7 +16,10 @@ namespace KnowledgeBase.Controllers
 
         public ActionResult Search()
         {
-            return View("Search");
+            List<IssueModel> issues = new KnowledgeBase.Services.DataBase.Context.Issue(Server.MapPath("~")).getAll();
+            SearchModel search = new SearchModel();
+            search.issues = issues;
+            return View("Search", search);
         }
 
         public ActionResult Add(IssueModel issue)
@@ -42,6 +45,54 @@ namespace KnowledgeBase.Controllers
                 ViewBag.ErrorMessage = "Please fill all the required fields";
                 return View("Register", issue);
             }
+        }
+
+        public ActionResult SearchByFilter(SearchModel search)
+        {
+            if (ModelState.IsValid && !string.IsNullOrEmpty(search.textToSearch))
+            {
+                List<IssueModel> searchedIssues = new List<IssueModel>();
+                var issues = new KnowledgeBase.Services.DataBase.Context.Issue(Server.MapPath("~")).getAll();
+                if (search.includeTitle)
+                {
+                    var filtered = issues.Where(i => i.title.Contains(search.textToSearch)).ToList();
+                    searchedIssues = searchedIssues.Union(filtered).ToList();
+                }
+                if (search.includeSymptom)
+                {
+                    var filtered = issues.Where(i => i.symptom.Contains(search.textToSearch)).ToList();
+                    searchedIssues = searchedIssues.Union(filtered).ToList();
+                }
+                if (search.includeDiagnostic)
+                {
+                    var filtered = issues.Where(i => i.diagnostic.Contains(search.textToSearch)).ToList();
+                    searchedIssues = searchedIssues.Union(filtered).ToList();
+                }
+                if (search.includeFix)
+                {
+                    var filtered = issues.Where(i => i.fix.Contains(search.textToSearch)).ToList();
+                    searchedIssues = searchedIssues.Union(filtered).ToList();
+                }
+                if (search.includeComments)
+                {
+                    var filtered = issues.Where(i => i.comments.Contains(search.textToSearch)).ToList();
+                    searchedIssues = searchedIssues.Union(filtered).ToList();
+                }
+                search.issues = searchedIssues;
+                return View("Search", search);
+            }
+            else
+            {
+                ModelState.Clear();
+                return RedirectToAction("Search");
+            }
+        }
+
+        public ActionResult Detail(Guid id)
+        {
+            var issues = new KnowledgeBase.Services.DataBase.Context.Issue(Server.MapPath("~")).getAll();
+            IssueModel issue = issues.Where(i => i.id == id).FirstOrDefault();
+            return View("Detail", issue);
         }
     }
 }

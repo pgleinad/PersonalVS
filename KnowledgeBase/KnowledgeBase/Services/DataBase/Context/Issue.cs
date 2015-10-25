@@ -37,5 +37,19 @@ namespace KnowledgeBase.Services.DataBase.Context
             }
             return inserted;
         }
+
+        public List<IssueModel> getAll()
+        {
+            List<IssueModel> issues = new List<IssueModel>();
+            using (KnowledgeBaseContext dc = new KnowledgeBaseContext(connectionString, mapping))
+            {
+                IEnumerable<IssueModel> allIssues = from i in dc.GetTable<IssueModel>() select i;
+                foreach (var issue in allIssues)
+                {
+                    issues.Add(issue);
+                }
+            }
+            return issues;
+        }
     }
 }

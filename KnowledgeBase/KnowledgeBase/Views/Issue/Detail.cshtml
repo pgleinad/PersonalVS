@@ -1,0 +1,50 @@
+﻿@model KnowledgeBase.Models.IssueModel
+@{
+    ViewBag.Title = "Detail Issue";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+@{ Html.RenderPartial("_IssueMenu"); }
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.symptom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.diagnostic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.fix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.createdDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.comments)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(m => m.title, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.symptom, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.diagnostic, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.fix, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.createdDate, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.comments)
+        </td>
+    </tr>
+</table>

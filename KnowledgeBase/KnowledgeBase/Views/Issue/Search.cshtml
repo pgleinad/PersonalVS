@@ -1,6 +1,95 @@
-﻿@{
-    ViewBag.Title = "Search Issue";
+﻿@model KnowledgeBase.Models.SearchModel
+@{
+    ViewBag.Title = "Register Issue";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 @{ Html.RenderPartial("_IssueMenu"); }
+
+@using (Html.BeginForm("SearchByFilter", "Issue", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Issue list.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.textToSearch, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.textToSearch, new { @class = "form-control" })
+        </div>
+    </div>
+    <h5>Include:</h5>
+    <table class="form-group">
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.includeTitle, new { @class = "col-md-2 control-label" })
+            </td>
+            <td>
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.includeTitle, new { @class = "checkbox" })
+                </div>
+            </td>
+            <td>
+                @Html.LabelFor(m => m.includeSymptom, new { @class = "col-md-2 control-label" })
+            </td>
+            <td>
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(m => m.includeSymptom, new { @class = "checkbox" })
+                </div>
+            </td>
+            <td>
+                @Html.LabelFor(m => m.includeDiagnostic, new { @class = "col-md-2 control-label" })
+            </td>
+            <td>
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(m => m.includeDiagnostic, new { @class = "checkbox" })
+                </div>
+            </td>
+            <td>
+                @Html.LabelFor(m => m.includeFix, new { @class = "col-md-2 control-label" })
+            </td>
+            <td>
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(m => m.includeFix, new { @class = "checkbox" })
+                </div>
+            </td>
+            <td>
+                @Html.LabelFor(m => m.includeComments, new { @class = "col-md-2 control-label" })
+            </td>
+            <td>
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(m => m.includeComments, new { @class = "checkbox" })
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Search" />
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Title")
+            </th>
+            <th>
+                @Html.DisplayName("Created Date")
+            </th>
+        </tr>
+        @if (Model.issues != null)
+        {
+            foreach (var issue in Model.issues)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Detail", new { @id = issue.id })">@Html.DisplayFor(i => issue.title)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => issue.createdDate)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
