@@ -6,45 +6,51 @@
 <h3>@ViewBag.Message</h3>
 @{ Html.RenderPartial("_IssueMenu"); }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(m => m.title)
-        </th>
-        <th>
+<div class="row">
+    <h2>
+        @Html.DisplayFor(m => m.title, new { @class = "form-control" })
+    </h2>
+    <div>
+        @Html.DisplayFor(m => m.createdDate, new { @class = "form-control" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>
             @Html.DisplayNameFor(m => m.symptom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(m => m.diagnostic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(m => m.fix)
-        </th>
-        <th>
-            @Html.DisplayNameFor(m => m.createdDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(m => m.comments)
-        </th>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayFor(m => m.title, new { @class = "form-control" })
-        </td>
-        <td>
+        </h4>
+        <p>
             @Html.DisplayFor(m => m.symptom, new { @class = "form-control" })
-        </td>
-        <td>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>
+            @Html.DisplayNameFor(m => m.diagnostic)
+        </h4>
+        <p>
             @Html.DisplayFor(m => m.diagnostic, new { @class = "form-control" })
-        </td>
-        <td>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>
+            @Html.DisplayNameFor(m => m.fix)
+        </h4>
+        <p>
             @Html.DisplayFor(m => m.fix, new { @class = "form-control" })
-        </td>
-        <td>
-            @Html.DisplayFor(m => m.createdDate, new { @class = "form-control" })
-        </td>
-        <td>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>
+            @Html.DisplayNameFor(m => m.comments)
+        </h4>
+        <p>
             @Html.DisplayFor(m => m.comments)
-        </td>
-    </tr>
-</table>
+        </p>
+    </div>
+</div>

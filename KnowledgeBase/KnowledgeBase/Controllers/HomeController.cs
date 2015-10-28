@@ -15,7 +15,7 @@ namespace KnowledgeBase.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Knowledge Base: the issue way to record and search issues and fixes";
 
             return View();
         }
